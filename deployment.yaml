@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: julian
+  labels:
+    created-by: julian
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: julian
+  template:
+    metadata:
+      labels:
+        app: julian
+        created-by: julian
+    spec:
+      containers:
+        - name: http-https-echo
+          image: mendhak/http-https-echo
+          env:
+            - name: ECHO_INCLUDE_ENV_VARS
+              value: "1"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "45Mi"    
+              cpu: "50m"        
+            limits:
+              memory: "64Mi"    
+              cpu: "100m"       
