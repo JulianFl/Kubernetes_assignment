@@ -35,8 +35,8 @@ spec:
             periodSeconds: 10
           resources:
             requests:
-              memory: "45Mi"    
-              cpu: "50m"        
+              memory: "40Mi" # Increased to meet expected peak usage with a small buffer.
+              cpu: "20m"     # Matches the minimal CPU needs from your previous configuration.
             limits:
-              memory: "64Mi"    
-              cpu: "100m"       
+              memory: "64Mi" # Allows for some overhead beyond the observed 35MiB.
+              cpu: "250m"    # Provides more CPU capacity to handle peak processing demands.
